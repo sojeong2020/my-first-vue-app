@@ -1,8 +1,11 @@
 <template>
 <div class="app">
+
+  <hero 
+  @update-visibleA="updateVisibleA"
+  @update-visibleB="updateVisibleB" />
   
- <Hero />
-  </div>
+</div>
 </template>
 
 <script lang="ts">
@@ -12,19 +15,16 @@ import Hero from './components/Hero.vue'
 export default defineComponent({
   name: 'App',
   components: {Hero},
-  data() {
-    return {
-      visible:  true
-      }
-    },
    methods: {
-     updateVisible() {
-      this.visible=true
-      
-        } 
+    updateVisibleA() {
+     console.log('from A parent ')
+    },
+    updateVisibleB() {
+    console.log('from B parent')
+    }, 
+
     } 
-  
-  
+
 });
 </script>
 

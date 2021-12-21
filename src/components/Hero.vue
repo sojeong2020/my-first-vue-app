@@ -1,7 +1,6 @@
 <template>
-    <div class="front" >
+    <div class="front" :style="{ backgroundImage: `url(${imagePath})` }" >
 
-        <img :src="image">
         <p class="lead">{{leadText}}</p>
         <p class="title">{{title}}</p>
         <p class="description">{{desciption}}</p>
@@ -9,40 +8,48 @@
     <div class="button">
         <button 
         class="sub-button"
-        v-on:click="changeVisible"
-        >NEW ARRIVALS</button>
+        v-on:click="changeVisibleA"
+        :disabled="!visibleA"
+        >NEW ARRIVALS</button> 
+
         <button 
         class="sub-button"
-        v-on:click="changeVisible"
+        v-on:click="changeVisibleB"
+         :disabled="!visibleB"
         >BEST SELLERS</button>
     </div>
 
     </div>
-    
+
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import diamond from '@/assets/images/diamond.jpg'
 
 export default defineComponent({
-    /* props: {
-     change: {
-         type: Boolean,
-         required: true
-        }
-    },  */
-     data() {
+    data() {
     return {
-      image: '../assets/images/diamond.jpg',
+      imagePath: diamond,
       leadText: 'DISCOVER',
       title: 'YOUR STONE',
       desciption: 'Start your engagement ring journey here.Craft your own bespoke design or browse from our ready to wear collection',
-      visible: true 
-      }
+      visibleA: true,
+      visibleB: true,
+    }
     },
     methods: {
-     changeVisible() {
-       this.$emit('change-visible')
+     changeVisibleA() {
+       this.$emit('update-visibleA')
+       this.visibleA= false
+           console.log('you clicked button A from child')
+
+        },
+        changeVisibleB() {
+       this.$emit('update-visibleB')
+       this.visibleB= false
+           console.log('you clicked button B from child')
+
         } 
     } 
    
@@ -50,13 +57,16 @@ export default defineComponent({
 </script>
 
 <style>
-.front {
-  
-  text-align: center;
 
+.front {
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
     } 
 .lead {
     font-size: 20px;
+
     }
 .title {
     font-size: 28px;
@@ -72,5 +82,6 @@ export default defineComponent({
   padding: 10px;
   text-align: center;
   cursor: pointer;
+
 }
 </style>
